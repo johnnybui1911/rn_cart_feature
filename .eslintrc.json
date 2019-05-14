@@ -3,6 +3,7 @@
   "extends": "airbnb",
   "plugins": ["react", "jsx-a11y", "import", "react-native"],
   "rules": {
+    "arrow-parens": ["error", "as-needed"],
     "quotes": ["error", "double", { "avoidEscape": true }],
     "comma-dangle": ["error", "never"],
     "no-underscore-dangle": "off",

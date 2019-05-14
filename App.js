@@ -1,5 +1,14 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import numeral from "numeral";
+import {
+  FlatList,
+  SafeAreaView,
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity
+} from "react-native";
 
 const styles = StyleSheet.create({
   container: {
@@ -8,7 +17,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F8F8F8"
   },
   item: {
-    flex: 2,
+    height: 150,
     backgroundColor: "white",
     flexDirection: "row",
     // alignItems: "center",
@@ -22,7 +31,7 @@ const styles = StyleSheet.create({
   footer: {
     flex: 1,
     flexDirection: "row",
-    margin: 5
+    margin: 20
   },
   button: {
     alignItems: "center",
@@ -79,10 +88,26 @@ const initialList = [
     price: 10.49,
     quantity: 0,
     imgID: 3
+  },
+  {
+    id: 4,
+    name: "JBL Flip 4 Travel Case",
+    des: "Accessories / Case",
+    price: 10.49,
+    quantity: 0,
+    imgID: 3
+  },
+  {
+    id: 5,
+    name: "JBL Flip 4 Travel Case",
+    des: "Accessories / Case",
+    price: 10.49,
+    quantity: 0,
+    imgID: 3
   }
 ];
 
-const getItem = (item, handleIncrement, handleDecrement) => {
+const _renderItem = (item, _handleIncrement, _handleDecrement) => {
   let imgSource = "";
   switch (item.imgID) {
     case 1:
@@ -95,7 +120,7 @@ const getItem = (item, handleIncrement, handleDecrement) => {
       imgSource = require("./img/item3.png");
       break;
     default:
-      imgSource = "";
+      imgSource = undefined; /* undefined or null */
   }
   return (
     <View key={item.id} style={styles.item}>
@@ -120,20 +145,21 @@ const getItem = (item, handleIncrement, handleDecrement) => {
             {JSON.stringify(item.price).indexOf(".") >= 0
               ? item.price
               : JSON.stringify(item.price) + ".00"}
+            {/* numeraljs */}
           </Text>
         </View>
       </View>
       <View style={styles.rightBarButton}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => handleIncrement(item.id)}
+          onPress={() => _handleIncrement(item.id)}
         >
           <Text> + </Text>
         </TouchableOpacity>
         <Text>{item.quantity}</Text>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => handleDecrement(item.id)}
+          onPress={() => _handleDecrement(item.id)}
         >
           <Text> - </Text>
         </TouchableOpacity>
@@ -141,15 +167,12 @@ const getItem = (item, handleIncrement, handleDecrement) => {
     </View>
   );
 };
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       itemList: [],
-      totalItem: 0,
-      totalPrice: 0,
-      totalQuantity: 0
+      totalItem: 0
     };
   }
 
@@ -161,67 +184,171 @@ export default class App extends React.Component {
     );
   };
 
-  handleItem = () => {
-    this.setState(prevState => ({
-      totalItem: prevState.totalItem + 1
-    }));
+  _renderListItem = () => {
+    return (
+      <FlatList
+        data={this.state.itemList}
+        keyExtractor={(item, index) => item.id.toString()}
+        renderItem={this._renderItem}
+      />
+    );
+  };
+
+  _renderItem = ({ item }) => {
+    let imgSource = "";
+    switch (item.imgID) {
+      case 1:
+        imgSource = require("./img/item1.png");
+        break;
+      case 2:
+        imgSource = require("./img/item2.png");
+        break;
+      case 3:
+        imgSource = require("./img/item3.png");
+        break;
+      default:
+        imgSource = undefined; /* undefined or null */
+    }
+    return (
+      <View key={item.id} style={styles.item}>
+        <Image source={imgSource} style={{ height: "100%", flex: 2 }} />
+        <View
+          style={{
+            flex: 3
+          }}
+        >
+          <View style={{ flex: 1, justifyContent: "center" }}>
+            <Text style={styles.title}>{item.name}</Text>
+            <Text style={({ fontSize: 12 }, styles.description)}>
+              {item.des}
+            </Text>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center"
+            }}
+          >
+            <Text style={{ fontWeight: "bold", color: "red" }}>
+              $
+              {JSON.stringify(item.price).indexOf(".") >= 0
+                ? item.price
+                : JSON.stringify(item.price) + ".00"}
+              {/* numeraljs */}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.rightBarButton}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this._handleIncrement(item.id)}
+          >
+            <Text> + </Text>
+          </TouchableOpacity>
+          <Text>{item.quantity}</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this._handleDecrement(item.id)}
+          >
+            <Text> - </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
   };
 
   // + button
-  handleIncrement = id => {
-    let item = this.state.itemList.find(items => items.id === id); // find item by id
-    item.quantity += 1; // increment quantity by 1
-
-    const tmpList = this.state.itemList; //get itemList state
-    tmpList.filter(items => items.id === item.id).map(() => item); // filter by item found above and then replace the old item
-
-    this.setState({ itemList: tmpList }, this.getTotalQuantity);
+  // CALLBACK QUA NHIEU, CHI SET STATE 1 LAN, VI NEU CALL BACK NHU THE RENDER LAI QUA NHIEU
+  _handleIncrement = id => {
+    this.setState(prevState => ({
+      itemList: prevState.itemList.map(item => {
+        if (item.id == id) {
+          return { ...item, quantity: item.quantity + 1 };
+        }
+        return item;
+      })
+    }));
   };
 
   // - button
-  handleDecrement = id => {
-    let item = this.state.itemList.find(items => items.id === id); // find item by id
-    if (item.quantity !== 0) {
-      item.quantity -= 1; // decrement quantity by 1
-
-      const tmpList = this.state.itemList; //get itemList state
-      tmpList.filter(items => items.id === item.id).map(() => item); // filter by item found above and then replace the old item
-
-      this.setState({ itemList: tmpList }, this.getTotalQuantity);
-    }
+  _handleDecrement = id => {
+    this.setState(prevState => ({
+      itemList: prevState.itemList.map(item => {
+        if (item.id == id) {
+          return { ...item, quantity: item.quantity - 1 };
+        }
+        return item;
+      })
+    }));
   };
 
-  getTotalQuantity = () => {
-    let { itemList, totalQuantity } = this.state;
-    totalQuantity = 0;
-    itemList.map(item => {
+  // -placeOrder reset quantity
+  _handlePlaceOrder = () => {
+    this.setState(prevState => ({
+      itemList: prevState.itemList.map(item => {
+        return { ...item, quantity: 0 };
+      })
+    }));
+  };
+
+  // use function render view, before it process the data list in state to calculate totalPrice and Quantity
+  // it help reduce the time we need to re-render, just one setState process for item quantity in plus and substract button
+  _renderTotalPrice = () => {
+    const { itemList } = this.state;
+    let totalPrice = 0;
+    itemList.forEach(item => {
+      totalPrice += item.quantity * item.price;
+    });
+    //  NUMERALJS
+    totalPrice = numeral(totalPrice).format("$0.00");
+
+    let totalQuantity = 0;
+    itemList.forEach(item => {
       totalQuantity += item.quantity;
     });
 
-    this.setState({ totalQuantity }, this.getTotalPrice);
-  };
-
-  getTotalPrice = () => {
-    let { itemList, totalPrice } = this.state;
-    totalPrice = 0;
-    itemList.map(item => {
-      totalPrice += item.quantity * item.price;
-    });
-    totalPrice = totalPrice.toFixed(2);
-
-    this.setState({ totalPrice });
-  };
-
-  handlePlaceOrder = () => {
-    let tmpList = this.state.itemList;
-    tmpList.map(item => (item.quantity = 0));
-    this.setState({ itemList: tmpList }, this.getTotalQuantity);
+    return (
+      <View style={styles.footer}>
+        <View
+          style={{
+            flex: 2,
+            alignItems: "flex-end"
+          }}
+        >
+          <Text>Total: </Text>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center"
+          }}
+        >
+          <Text style={styles.title}>{totalPrice}</Text>
+        </View>
+        <View
+          style={{
+            flex: 2,
+            alignItems: "flex-end"
+          }}
+        >
+          <Text>Quantity: </Text>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center"
+          }}
+        >
+          <Text style={styles.title}>{totalQuantity}</Text>
+        </View>
+      </View>
+    );
   };
 
   render() {
-    const { totalItem, totalPrice, totalQuantity } = this.state;
+    const { totalItem } = this.state;
     return (
-      <View style={{ flex: 1 }}>
+      <SafeAreaView forceInset={{ top: "always" }} style={{ flex: 1 }}>
         <View style={styles.container}>
           <View style={styles.header}>
             <Text>
@@ -229,43 +356,11 @@ export default class App extends React.Component {
               <Text style={styles.description}>Items</Text>
             </Text>
           </View>
-          {this.state.itemList.map(item =>
-            getItem(item, this.handleIncrement, this.handleDecrement)
-          )}
-          <View style={styles.footer}>
-            <View
-              style={{
-                flex: 2,
-                alignItems: "flex-end"
-              }}
-            >
-              <Text>Total: </Text>
-            </View>
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center"
-              }}
-            >
-              <Text style={styles.title}>${totalPrice}</Text>
-            </View>
-            <View
-              style={{
-                flex: 2,
-                alignItems: "flex-end"
-              }}
-            >
-              <Text>Quantity: </Text>
-            </View>
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center"
-              }}
-            >
-              <Text style={styles.title}>{totalQuantity}</Text>
-            </View>
-          </View>
+          {this._renderListItem()}
+          {/* {this.state.itemList.map(item =>
+            _renderItem(item, this._handleIncrement, this._handleDecrement)
+          )} */}
+          {this._renderTotalPrice()}
         </View>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <View style={{ flex: 1 }}>
@@ -276,7 +371,7 @@ export default class App extends React.Component {
           <View style={{ flex: 1 }}>
             <TouchableOpacity
               style={styles.buttonPlace}
-              onPress={() => this.handlePlaceOrder()}
+              onPress={() => this._handlePlaceOrder()}
             >
               <Text style={{ color: "white", fontWeight: "bold" }}>
                 Place Order
@@ -284,7 +379,7 @@ export default class App extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
