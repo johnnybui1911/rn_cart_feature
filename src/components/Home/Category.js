@@ -5,7 +5,7 @@ import styles from "./styles";
 import images from "../../res/images";
 import { colors } from "../../res/colors";
 
-export const CategoryCard = props => {
+export const Category = props => {
   const { item, index, navigation } = props;
   const { name, category_url } = item;
   const colorID = props.index % 5;
@@ -26,7 +26,11 @@ export const CategoryCard = props => {
             {`${name.toUpperCase()} LIST`}
           </Text>
         </View>
-        <Image source={images.fruit1} style={styles.image} />
+        <View
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
+          <Image source={images.fruits[colorID]} style={styles.image} />
+        </View>
       </View>
     </TouchableOpacity>
   );

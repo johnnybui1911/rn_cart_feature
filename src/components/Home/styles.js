@@ -8,10 +8,10 @@ export default StyleSheet.create({
     justifyContent: "center"
   },
   item: {
-    height: 150,
+    height: 140,
     flexDirection: "row"
   },
-  image: { flex: 1, height: "100%" },
+  image: { height: 120, width: 120 },
   title_category: {
     fontSize: 30,
     fontWeight: "bold",

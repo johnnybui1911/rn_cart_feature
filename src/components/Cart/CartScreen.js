@@ -1,20 +1,22 @@
 import React from "react";
 import { SafeAreaView, FlatList, Text } from "react-native";
-import axios from "../../../api";
-import icons from "../../../res/icons";
+import axios from "../../api";
+import icons from "../../res/icons";
 import styles from "./styles";
-import { ProductCard } from "./ProductCard";
+import ItemCard from "./ItemCard";
+
+const initialProducts = [
+  {
+    name: "Cashew Nuts",
+    product_url: "/shop/products/53"
+  },
+  {
+    name: "Hazelnuts",
+    product_url: "/shop/products/59"
+  }
+];
 
 export default class CartScreen extends React.Component {
-  static navigationOptions = {
-    title: "PRODUCT",
-    headerRight: icons.cartIcon,
-    headerStyle: {
-      backgroundColor: "#fff"
-    },
-    headerTintColor: "grey"
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -24,17 +26,22 @@ export default class CartScreen extends React.Component {
   }
 
   componentDidMount = () => {
-    this._getProductFromCategory();
+    this._getData();
   };
 
-  _getProductFromCategory = () => {
+  _getData = () => {
     const { navigation } = this.props;
-    const API = navigation.getParam("category_url", "/shop/categories/Nuts");
+    const API_URL = navigation.getParam(
+      "category_url",
+      "/shop/categories/Nuts"
+    );
     axios
-      .get(API)
+      .get(API_URL)
       .then(response =>
         this.setState({
-          products: response.data.products,
+          products: response.data.products.filter(
+            (product, index) => index < 100
+          ),
           isLoading: false
         })
       )
@@ -55,7 +62,7 @@ export default class CartScreen extends React.Component {
   _renderItem = ({ item, index }) => {
     const { navigation } = this.props;
     const props = { item, index, navigation };
-    return <ProductCard {...props} />;
+    return <ItemCard {...props} />;
   };
 
   render() {

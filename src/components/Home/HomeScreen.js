@@ -5,15 +5,11 @@ import React from "react";
 import { SafeAreaView, FlatList, Text } from "react-native";
 import axios from "../../api";
 import styles from "./styles";
-import { CategoryCard } from "./CategoryCard";
+import { Category } from "./Category";
 
 const API_URL = "/shop/categories/";
 
 export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    headerTitle: "HOME"
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -23,10 +19,10 @@ export default class HomeScreen extends React.Component {
   }
 
   componentDidMount = () => {
-    this._getCategories();
+    this._getData();
   };
 
-  _getCategories = () => {
+  _getData = () => {
     axios
       .get(API_URL)
       .then(response => {
@@ -52,7 +48,7 @@ export default class HomeScreen extends React.Component {
   _renderCategory = ({ item, index }) => {
     const { navigation } = this.props;
     const props = { item, index, navigation };
-    return <CategoryCard {...props} />;
+    return <Category {...props} />;
   };
 
   render() {

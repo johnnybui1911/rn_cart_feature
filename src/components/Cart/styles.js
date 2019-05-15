@@ -1,29 +1,27 @@
 import { StyleSheet } from "react-native";
 
-const styles = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-end",
     padding: 10,
-    bottom: 40
+    backgroundColor: "#fff",
+    justifyContent: "center"
   },
   item: {
-    flex: 1,
+    height: 140,
+    margin: 5,
+    flexDirection: "row",
     borderWidth: 1,
     borderColor: "#B5B5B5"
   },
+  image: { height: 120, width: 120 },
   primaryText: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: "bold",
     color: "#000000"
   },
   secondaryText: {
+    fontSize: 16,
     color: "#B5B5B5"
-  },
-  image: {
-    height: 200,
-    width: 200
   }
 });
-
-export default styles;

@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 export default {
   searchIcon: (
-    <Icon.Button name="search" size={20} backgroundColor="green" color="#fff" />
+    <Icon.Button name="search" size={20} backgroundColor="white" color="grey" />
   ),
   cartIcon: (
     <Icon.Button
@@ -14,6 +14,6 @@ export default {
       color="grey"
     />
   ),
-  plusIcon: <Icon name="plus-circle" size={20} color="grey" />,
-  minusIcon: <Icon name="minus-circle" size={20} color="grey" />
+  plusIcon: <Icon name="plus-circle" size={30} color="#B5B5B5" />,
+  minusIcon: <Icon name="minus-circle" size={30} color="#B5B5B5" />
 };
