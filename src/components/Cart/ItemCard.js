@@ -2,13 +2,21 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable import/prefer-default-export */
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator
+} from "react-native";
 import numeral from "numeral";
 import images from "../../res/images";
 import styles from "./styles";
-import axios from "../../api";
+import axios from "../../library/api";
+import { loadingIcon } from "../../res/icons";
+import palette from "../../res/palette";
 
-export const renderItem = item => {
+const renderItem = item => {
   const { name, price, index } = item;
   const imgID = index % 5;
   return (
@@ -31,7 +39,13 @@ export const renderItem = item => {
             justifyContent: "center"
           }}
         >
-          <Text style={{ fontWeight: "bold", color: "red", fontSize: 20 }}>
+          <Text
+            style={{
+              fontWeight: "bold",
+              color: palette.secondaryColor,
+              fontSize: 20
+            }}
+          >
             {numeral(price).format("$0.0")}
             <Text style={styles.secondaryText}> / kg</Text>
           </Text>
@@ -79,18 +93,21 @@ export default class ItemCard extends React.Component {
     const { item, index } = this.props;
     const { product, isLoading } = this.state;
     const { product_url } = item;
+
     return (
-      <TouchableOpacity
-        onPress={() => {
-          this.props.navigation.navigate("Detail", { product_url, index });
-        }}
-      >
+      <View>
         {isLoading ? (
-          <Text>Loading...</Text>
+          <View style={styles.item}>{loadingIcon}</View>
         ) : (
-          renderItem({ ...product, index })
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.navigate("Detail", { product_url, index });
+            }}
+          >
+            {renderItem({ ...product, index })}
+          </TouchableOpacity>
         )}
-      </TouchableOpacity>
+      </View>
     );
   }
 }

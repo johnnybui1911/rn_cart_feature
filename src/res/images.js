@@ -1,9 +1,9 @@
 export default {
   fruits: [
-    require("./fruit1.png"),
-    require("./fruit2.png"),
-    require("./fruit3.png"),
-    require("./fruit4.png"),
-    require("./fruit5.png")
+    require("./images/fruit1.png"),
+    require("./images/fruit2.png"),
+    require("./images/fruit3.png"),
+    require("./images/fruit4.png"),
+    require("./images/fruit5.png")
   ]
 };

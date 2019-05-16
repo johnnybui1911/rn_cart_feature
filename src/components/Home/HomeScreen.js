@@ -2,12 +2,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-array-index-key */
 import React from "react";
-import { SafeAreaView, FlatList, Text } from "react-native";
-import axios from "../../api";
+import { SafeAreaView, View, FlatList, Text } from "react-native";
+import axios from "../../library/api";
 import styles from "./styles";
+import { loadingIcon } from "../../res/icons";
 import { Category } from "./Category";
-
-const API_URL = "/shop/categories/";
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -23,15 +22,16 @@ export default class HomeScreen extends React.Component {
   };
 
   _getData = () => {
+    const API_URL = "/shop/categories/";
     axios
       .get(API_URL)
       .then(response => {
         this.setState({
-          categories: response.data.categories,
+          categories: response.data.categories.filter(item => item.name),
           isLoading: false
         });
       })
-      .catch(error => this.setState({ isLoading: true }));
+      .catch(() => this.setState({ isLoading: true }));
   };
 
   _renderListCategory = () => {
@@ -54,8 +54,12 @@ export default class HomeScreen extends React.Component {
   render() {
     const { isLoading } = this.state;
     return (
-      <SafeAreaView styles={styles.container}>
-        {isLoading ? <Text>Loading...</Text> : this._renderListCategory()}
+      <SafeAreaView style={styles.container}>
+        {isLoading ? (
+          <View style={styles.loading_view}>{loadingIcon}</View>
+        ) : (
+          this._renderListCategory()
+        )}
       </SafeAreaView>
     );
   }

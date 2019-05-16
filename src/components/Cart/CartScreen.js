@@ -1,7 +1,6 @@
 import React from "react";
-import { SafeAreaView, FlatList, Text } from "react-native";
-import axios from "../../api";
-import icons from "../../res/icons";
+import { SafeAreaView, FlatList } from "react-native";
+import axios from "../../library/api";
 import styles from "./styles";
 import ItemCard from "./ItemCard";
 
@@ -21,7 +20,7 @@ export default class CartScreen extends React.Component {
     super(props);
     this.state = {
       products: [],
-      isLoading: true
+      limit: 5
     };
   }
 
@@ -33,28 +32,33 @@ export default class CartScreen extends React.Component {
     const { navigation } = this.props;
     const API_URL = navigation.getParam(
       "category_url",
-      "/shop/categories/Nuts"
+      "/shop/categories/Fruits"
     );
     axios
       .get(API_URL)
       .then(response =>
         this.setState({
-          products: response.data.products.filter(
-            (product, index) => index < 100
-          ),
-          isLoading: false
+          products: response.data.products
         })
       )
-      .catch(() => this.setState({ isLoading: true }));
+      .catch(error => console.log(error));
+  };
+
+  _handleLoadMore = () => {
+    this.setState(prevState => ({
+      limit: prevState.limit + 5
+    }));
   };
 
   _renderListProduct = () => {
-    const { products } = this.state;
+    const { products, limit } = this.state;
     return (
       <FlatList
-        data={products}
+        data={products.slice(0, limit)}
         keyExtractor={(item, index) => index.toString()}
         renderItem={this._renderItem}
+        onEndReached={this._handleLoadMore}
+        onEndReachedThreshold={2}
       />
     );
   };
@@ -66,10 +70,9 @@ export default class CartScreen extends React.Component {
   };
 
   render() {
-    const { isLoading } = this.state;
     return (
       <SafeAreaView style={styles.container}>
-        {isLoading ? <Text>Loading...</Text> : this._renderListProduct()}
+        {this._renderListProduct()}
       </SafeAreaView>
     );
   }

@@ -9,6 +9,7 @@ import {
   StyleSheet,
   TouchableOpacity
 } from "react-native";
+import palette from "./src/res/palette";
 
 const styles = StyleSheet.create({
   container: {
@@ -168,7 +169,7 @@ export default class E1 extends React.Component {
               justifyContent: "center"
             }}
           >
-            <Text style={{ fontWeight: "bold", color: "red" }}>
+            <Text style={{ fontWeight: "bold", color: palette.secondaryColor }}>
               ${item.price}
             </Text>
           </View>

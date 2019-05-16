@@ -1,17 +1,25 @@
 import React from "react";
-import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator
+} from "react-native";
 import numeral from "numeral";
-import axios from "../../api";
-import icons from "../../res/icons";
+import axios from "../../library/api";
+import icons, { loadingIcon } from "../../res/icons";
 import styles from "./styles";
 import Description from "./Description";
 import CountButton from "./CountButton";
+import palette from "../../res/palette";
 
 const initialProduct = {
   name: "Strawberries",
   price: 7.1,
   photo_url: "/shop/products/92/photo"
 };
+
 const INITIAL_API_URL = "/shop/products/92";
 
 export default class DetailScreen extends React.Component {
@@ -40,7 +48,6 @@ export default class DetailScreen extends React.Component {
     axios
       .get(API_URL)
       .then(response => {
-        // console.log(response);
         const product = response.data;
         this.setState({ product: { ...product, count: 0 }, isLoading: false });
       })
@@ -81,7 +88,7 @@ export default class DetailScreen extends React.Component {
         }}
       >
         <Text style={styles.mediumSizeText}>PRICE</Text>
-        <Text style={{ fontWeight: "bold", color: "red" }}>
+        <Text style={{ fontWeight: "bold", color: palette.secondaryColor }}>
           $
           <Text style={styles.totalPriceText}>
             {numeral(totalPrice).format("0.0")}
@@ -98,7 +105,7 @@ export default class DetailScreen extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         {isLoading ? (
-          <Text>Loading ...</Text>
+          <View style={styles.loading}>{loadingIcon}</View>
         ) : (
           <View style={styles.item}>
             <Description {...item} />

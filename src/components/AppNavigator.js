@@ -3,14 +3,14 @@ import HomeScreen from "./Home/HomeScreen";
 import icons from "../res/icons";
 import CartScreen from "./Cart/CartScreen";
 import DetailScreen from "./Detail/DetailScreen";
+import palette from "../res/palette";
 
-// eslint-disable-next-line import/prefer-default-export
-export const AppNavigator = createStackNavigator(
+const AppNavigator = createStackNavigator(
   {
     Home: {
       screen: HomeScreen,
       navigationOptions: {
-        title: "Home"
+        title: "HOME"
       }
     },
     Cart: {
@@ -33,10 +33,12 @@ export const AppNavigator = createStackNavigator(
     defaultNavigationOptions: {
       headerRight: icons.searchIcon,
       headerStyle: {
-        backgroundColor: "#fff"
+        backgroundColor: palette.primaryColor
       },
-      headerTintColor: "grey"
+      headerTintColor: "#fff"
     },
     headerLayoutPreset: "center"
   }
 );
+
+export default AppNavigator;

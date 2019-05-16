@@ -9,10 +9,12 @@ export default StyleSheet.create({
   },
   item: {
     height: 140,
-    margin: 5,
+    margin: 10,
     flexDirection: "row",
-    borderWidth: 1,
-    borderColor: "#B5B5B5"
+    justifyContent: "center",
+    elevation: 3,
+    backgroundColor: "#fff",
+    borderRadius: 12
   },
   image: { height: 120, width: 120 },
   primaryText: {

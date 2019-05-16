@@ -1,20 +1,47 @@
 import { StyleSheet } from "react-native";
+import palette from "../../res/palette";
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#fff",
+    backgroundColor: palette.mainBackground,
     justifyContent: "center"
   },
   item: {
     height: 140,
-    flexDirection: "row"
+    marginVertical: 10,
+    marginRight: 45,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 10,
+    backgroundColor: palette.primaryColor,
+    borderRadius: 12
   },
-  image: { height: 120, width: 120 },
   title_category: {
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: "bold",
     color: "#fff"
+  },
+  loading_view: {
+    flex: 1,
+    justifyContent: "center"
+  },
+  titleView: {
+    flex: 2,
+    justifyContent: "center",
+    paddingLeft: 10,
+    backgroundColor: palette.primaryColor
+  },
+  shopIconView: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fff",
+    height: 100,
+    width: 100,
+    elevation: 10,
+    left: 45,
+    borderRadius: 12
   }
 });
