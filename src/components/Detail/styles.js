@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     width: 200
   },
   buy_now_button: {
-    backgroundColor: palette.secondaryColor,
+    backgroundColor: "transparent",
     width: 300,
     height: 40,
     padding: 10,

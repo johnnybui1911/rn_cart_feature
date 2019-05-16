@@ -1,11 +1,6 @@
 import React from "react";
-import {
-  SafeAreaView,
-  View,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator
-} from "react-native";
+import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
 import numeral from "numeral";
 import axios from "../../library/api";
 import icons, { loadingIcon } from "../../res/icons";
@@ -115,14 +110,18 @@ export default class DetailScreen extends React.Component {
               _handleSubtract={this._handleSubtract}
             />
             {this._renderTotalPrice()}
-            <TouchableOpacity
+            <LinearGradient
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
               style={styles.buy_now_button}
-              onPress={() => this._handleBuyNow()}
+              colors={["#ff6443", "#f5462d", "#eb1818"]}
             >
-              <Text style={{ color: "white", fontWeight: "bold" }}>
-                BUY NOW
-              </Text>
-            </TouchableOpacity>
+              <TouchableOpacity onPress={() => this._handleBuyNow()}>
+                <Text style={{ color: "white", fontWeight: "bold" }}>
+                  BUY NOW
+                </Text>
+              </TouchableOpacity>
+            </LinearGradient>
           </View>
         )}
       </SafeAreaView>

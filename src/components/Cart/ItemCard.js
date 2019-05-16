@@ -2,13 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable import/prefer-default-export */
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ActivityIndicator
-} from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import numeral from "numeral";
 import images from "../../res/images";
 import styles from "./styles";
