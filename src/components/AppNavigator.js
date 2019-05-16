@@ -29,7 +29,7 @@ const AppNavigator = createStackNavigator(
     }
   },
   {
-    initialRouteName: "Detail",
+    initialRouteName: "Home",
     defaultNavigationOptions: {
       headerRight: icons.searchIcon,
       headerStyle: {

@@ -3,6 +3,7 @@ import { SafeAreaView, FlatList } from "react-native";
 import axios from "../../library/api";
 import styles from "./styles";
 import ItemCard from "./ItemCard";
+import { loadingIcon } from "../../res/icons";
 
 const initialProducts = [
   {
@@ -20,7 +21,9 @@ export default class CartScreen extends React.Component {
     super(props);
     this.state = {
       products: [],
-      limit: 5
+      limit: 5,
+      isRefreshing: false,
+      isLoading: true
     };
   }
 
@@ -38,41 +41,56 @@ export default class CartScreen extends React.Component {
       .get(API_URL)
       .then(response =>
         this.setState({
-          products: response.data.products
+          products: response.data.products,
+          isLoading: false,
+          isRefreshing: false
         })
       )
-      .catch(error => console.log(error));
+      .catch(error =>
+        this.setState({
+          isLoading: true,
+          isRefreshing: false
+        })
+      );
   };
 
   _handleLoadMore = () => {
     this.setState(prevState => ({
-      limit: prevState.limit + 5
+      limit: prevState.limit + 1
     }));
   };
 
+  /* Pull to refresh, su dung ca isLoading de the hien ro rang hon */
+  _onRefresh = () => {
+    this.setState({ isRefreshing: true, limit: 5 }, this._getData());
+  };
+
   _renderListProduct = () => {
-    const { products, limit } = this.state;
+    const { products, limit, isRefreshing } = this.state;
     return (
       <FlatList
         data={products.slice(0, limit)}
         keyExtractor={(item, index) => index.toString()}
         renderItem={this._renderItem}
         onEndReached={this._handleLoadMore}
-        onEndReachedThreshold={2}
+        onEndReachedThreshold={5}
+        onRefresh={() => this._onRefresh()}
+        refreshing={isRefreshing}
       />
     );
   };
 
   _renderItem = ({ item, index }) => {
+    const { isRefreshing } = this.state;
     const { navigation } = this.props;
-    const props = { item, index, navigation };
+    const props = { item, index, navigation, isRefreshing };
     return <ItemCard {...props} />;
   };
 
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        {this._renderListProduct()}
+        {this.state.isLoading ? loadingIcon : this._renderListProduct()}
       </SafeAreaView>
     );
   }

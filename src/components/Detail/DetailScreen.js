@@ -36,6 +36,7 @@ export default class DetailScreen extends React.Component {
   };
 
   _getData = () => {
+    /* get product_url from ItemCard in CartScreen in order to retrieve data from API product */
     const API_URL = this.props.navigation.getParam(
       "product_url",
       INITIAL_API_URL
@@ -47,7 +48,6 @@ export default class DetailScreen extends React.Component {
         this.setState({ product: { ...product, count: 0 }, isLoading: false });
       })
       .catch(error => {
-        console.log(error);
         this.setState({ isLoading: true });
       });
   };
@@ -95,7 +95,10 @@ export default class DetailScreen extends React.Component {
 
   render() {
     const { product, isLoading } = this.state;
-    const index = this.props.navigation.getParam("index", 1);
+    const index = this.props.navigation.getParam(
+      "index",
+      1
+    ); /* get index params from cart view to render image (index % 5) */
     const item = { ...product, index };
     return (
       <SafeAreaView style={styles.container}>

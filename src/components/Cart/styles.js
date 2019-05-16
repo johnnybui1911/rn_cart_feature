@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import palette from "../../res/palette";
 
 export default StyleSheet.create({
   container: {
@@ -16,7 +17,14 @@ export default StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 12
   },
-  image: { height: 120, width: 120 },
+  placeholderMedia: {
+    height: 100,
+    width: 100,
+    backgroundColor: palette.primaryColorLight
+  },
+  placeholderLine: {
+    backgroundColor: palette.primaryColorLight
+  },
   primaryText: {
     fontSize: 20,
     fontWeight: "bold",
