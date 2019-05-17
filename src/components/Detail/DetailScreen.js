@@ -1,13 +1,13 @@
 import React from "react";
-import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
+import { SafeAreaView, View, Text } from "react-native";
 import numeral from "numeral";
 import axios from "../../library/api";
-import icons, { loadingIcon } from "../../res/icons";
+import { loadingIcon } from "../../res/icons";
 import styles from "./styles";
+import palette from "../../res/palette";
 import Description from "./Description";
 import CountButton from "./CountButton";
-import palette from "../../res/palette";
+import AddItemButton from "../../containers/Detail/AddItemButton";
 
 const initialProduct = {
   name: "Strawberries",
@@ -18,11 +18,6 @@ const initialProduct = {
 const INITIAL_API_URL = "/shop/products/92";
 
 export default class DetailScreen extends React.Component {
-  static navigationOptions = {
-    title: "PRODUCT",
-    headerRight: icons.cartIcon
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -44,8 +39,12 @@ export default class DetailScreen extends React.Component {
     axios
       .get(API_URL)
       .then(response => {
+        const id = API_URL.toString().substring(API_URL.lastIndexOf("/") + 1);
         const product = response.data;
-        this.setState({ product: { ...product, count: 0 }, isLoading: false });
+        this.setState({
+          product: { id, ...product, count: 0 },
+          isLoading: false
+        });
       })
       .catch(error => {
         this.setState({ isLoading: true });
@@ -66,11 +65,11 @@ export default class DetailScreen extends React.Component {
       }));
     }
   };
-  _handleBuyNow = () => {
-    this.setState(prevState => ({
-      product: { ...prevState.product, count: 0 }
-    }));
-  };
+  // _handleBuyNow = () => {
+  //   this.setState(prevState => ({
+  //     product: { ...prevState.product, count: 0 }
+  //   }));
+  // };
 
   _renderTotalPrice = () => {
     const { count, price } = this.state.product;
@@ -95,10 +94,7 @@ export default class DetailScreen extends React.Component {
 
   render() {
     const { product, isLoading } = this.state;
-    const index = this.props.navigation.getParam(
-      "index",
-      1
-    ); /* get index params from cart view to render image (index % 5) */
+    const index = this.props.navigation.getParam("index", 1);
     const item = { ...product, index };
     return (
       <SafeAreaView style={styles.container}>
@@ -113,18 +109,7 @@ export default class DetailScreen extends React.Component {
               _handleSubtract={this._handleSubtract}
             />
             {this._renderTotalPrice()}
-            <LinearGradient
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              style={styles.buy_now_button}
-              colors={["#ff6443", "#f5462d", "#eb1818"]}
-            >
-              <TouchableOpacity onPress={() => this._handleBuyNow()}>
-                <Text style={{ color: "white", fontWeight: "bold" }}>
-                  BUY NOW
-                </Text>
-              </TouchableOpacity>
-            </LinearGradient>
+            <AddItemButton product={product} />
           </View>
         )}
       </SafeAreaView>

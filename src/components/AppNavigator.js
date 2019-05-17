@@ -1,9 +1,12 @@
+import React from "react";
 import { createStackNavigator } from "react-navigation";
 import HomeScreen from "./Home/HomeScreen";
 import icons from "../res/icons";
 import CartScreen from "./Cart/CartScreen";
 import DetailScreen from "./Detail/DetailScreen";
 import palette from "../res/palette";
+import CartIcon from "../containers/Header/ShoppingCartIcon/CartIcon";
+import ShoppingCartScreen from "./ShoppingCart/ShoppingCartScreen";
 
 const AppNavigator = createStackNavigator(
   {
@@ -16,27 +19,33 @@ const AppNavigator = createStackNavigator(
     Cart: {
       screen: CartScreen,
       navigationOptions: {
-        title: "PRODUCT",
-        headerRight: icons.cartIcon
+        title: "PRODUCT"
       }
     },
     Detail: {
       screen: DetailScreen,
       navigationOptions: {
-        title: "PRODUCT",
-        headerRight: icons.cartIcon
+        title: "PRODUCT"
       }
+    },
+    ShoppingCart: {
+      screen: ShoppingCartScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: "CART"
+      })
     }
   },
   {
-    initialRouteName: "Home",
-    defaultNavigationOptions: {
-      headerRight: icons.searchIcon,
+    initialRouteName: "Cart",
+    defaultNavigationOptions: ({ navigation }) => ({
+      headerRight: (
+        <CartIcon onpress={() => navigation.navigate("ShoppingCart")} />
+      ),
       headerStyle: {
         backgroundColor: palette.primaryColor
       },
       headerTintColor: "#fff"
-    },
+    }),
     headerLayoutPreset: "center"
   }
 );
