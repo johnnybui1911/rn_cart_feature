@@ -9,7 +9,7 @@ export const Category = props => {
   const { name, category_url } = item;
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("Cart", { category_url })}
+      onPress={() => navigation.navigate("List", { category_url })}
     >
       <View style={styles.item}>
         <View style={styles.titleView}>

@@ -1,12 +1,11 @@
 import React from "react";
 import { createStackNavigator } from "react-navigation";
-import HomeScreen from "./Home/HomeScreen";
-import icons from "../res/icons";
-import CartScreen from "./Cart/CartScreen";
-import DetailScreen from "./Detail/DetailScreen";
-import palette from "../res/palette";
-import CartIcon from "../containers/Header/ShoppingCartIcon/CartIcon";
-import ShoppingCartScreen from "./ShoppingCart/ShoppingCartScreen";
+import HomeScreen from "./components/Home/HomeScreen";
+import ListScreen from "./components/List/ListScreen";
+import DetailScreen from "./components/Detail/DetailScreen";
+import CartIcon from "./containers/Header/ShoppingCartIcon/CartIcon";
+import ShoppingCartScreen from "./components/ShoppingCart/ShoppingCartScreen";
+import palette from "./res/palette";
 
 const AppNavigator = createStackNavigator(
   {
@@ -16,8 +15,8 @@ const AppNavigator = createStackNavigator(
         title: "HOME"
       }
     },
-    Cart: {
-      screen: CartScreen,
+    List: {
+      screen: ListScreen,
       navigationOptions: {
         title: "PRODUCT"
       }
@@ -28,7 +27,7 @@ const AppNavigator = createStackNavigator(
         title: "PRODUCT"
       }
     },
-    ShoppingCart: {
+    Cart: {
       screen: ShoppingCartScreen,
       navigationOptions: ({ navigation }) => ({
         title: "CART"
@@ -36,11 +35,9 @@ const AppNavigator = createStackNavigator(
     }
   },
   {
-    initialRouteName: "Cart",
+    initialRouteName: "Home",
     defaultNavigationOptions: ({ navigation }) => ({
-      headerRight: (
-        <CartIcon onpress={() => navigation.navigate("ShoppingCart")} />
-      ),
+      headerRight: <CartIcon onpress={() => navigation.navigate("Cart")} />,
       headerStyle: {
         backgroundColor: palette.primaryColor
       },

@@ -16,7 +16,7 @@ const initialProducts = [
   }
 ];
 
-export default class CartScreen extends React.Component {
+export default class ListScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

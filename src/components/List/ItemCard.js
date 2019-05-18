@@ -84,7 +84,7 @@ export default class ItemCard extends React.Component {
   };
 
   render() {
-    /* props isRefreshing from CartScreen - FlatList each time being refresh */
+    /* props isRefreshing from ListScreen - FlatList each time being refresh */
     const { item, index, isRefreshing } = this.props;
     const { product, isLoading } = this.state;
     const { product_url } = item;

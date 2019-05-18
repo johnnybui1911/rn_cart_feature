@@ -6,8 +6,7 @@ import addItem from "../../actions/addItem";
 import styles from "./styles";
 
 const AddItemButton = props => {
-  const { addItemToCart, product } = props;
-  console.log(product);
+  const { _addItemToCart, product, _handleButtonClick } = props;
   return (
     <LinearGradient
       start={{ x: 0, y: 0 }}
@@ -15,7 +14,12 @@ const AddItemButton = props => {
       style={styles.buy_now_button}
       colors={["#ff6443", "#f5462d", "#eb1818"]}
     >
-      <TouchableOpacity onPress={() => addItemToCart(product)}>
+      <TouchableOpacity
+        onPress={() => {
+          _handleButtonClick();
+          _addItemToCart(product);
+        }}
+      >
         <Text style={{ color: "white", fontWeight: "bold" }}>ADD TO CART</Text>
       </TouchableOpacity>
     </LinearGradient>
@@ -23,7 +27,7 @@ const AddItemButton = props => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addItemToCart: product => {
+  _addItemToCart: product => {
     if (product.count !== 0) {
       dispatch(addItem(product));
     }

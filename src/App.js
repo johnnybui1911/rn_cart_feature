@@ -2,7 +2,7 @@ import React from "react";
 import { createAppContainer } from "react-navigation";
 import { Provider } from "react-redux";
 import store from "./store";
-import AppNavigator from "./components/AppNavigator";
+import AppNavigator from "./AppNavigator";
 
 const AppContainer = createAppContainer(AppNavigator);
 

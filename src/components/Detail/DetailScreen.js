@@ -31,7 +31,7 @@ export default class DetailScreen extends React.Component {
   };
 
   _getData = () => {
-    /* get product_url from ItemCard in CartScreen in order to retrieve data from API product */
+    /* get product_url from ItemCard in ListScreen in order to retrieve data from API product */
     const API_URL = this.props.navigation.getParam(
       "product_url",
       INITIAL_API_URL
@@ -65,11 +65,12 @@ export default class DetailScreen extends React.Component {
       }));
     }
   };
-  // _handleBuyNow = () => {
-  //   this.setState(prevState => ({
-  //     product: { ...prevState.product, count: 0 }
-  //   }));
-  // };
+
+  _handleMainButtonClick = () => {
+    this.setState(prevState => ({
+      product: { ...prevState.product, count: 0 }
+    }));
+  };
 
   _renderTotalPrice = () => {
     const { count, price } = this.state.product;
@@ -109,7 +110,10 @@ export default class DetailScreen extends React.Component {
               _handleSubtract={this._handleSubtract}
             />
             {this._renderTotalPrice()}
-            <AddItemButton product={product} />
+            <AddItemButton
+              product={product}
+              _handleButtonClick={this._handleMainButtonClick}
+            />
           </View>
         )}
       </SafeAreaView>
