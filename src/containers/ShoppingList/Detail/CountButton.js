@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { View, TouchableOpacity, Text } from "react-native";
-import icons from "../../res/icons";
+import icons from "../../../res/icons";
 
 const CountButton = ({ count, _handlePlus, _handleSubtract }) => {
   return (

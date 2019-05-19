@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import palette from "../../res/palette";
+import palette from "../../../res/palette";
 
 export default StyleSheet.create({
   container: {
@@ -33,5 +33,9 @@ export default StyleSheet.create({
   secondaryText: {
     fontSize: 16,
     color: "#B5B5B5"
+  },
+  title: {
+    fontWeight: "bold",
+    color: "#000000"
   }
 });

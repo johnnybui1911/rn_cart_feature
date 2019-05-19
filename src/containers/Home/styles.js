@@ -24,10 +24,6 @@ export default StyleSheet.create({
     fontWeight: "bold",
     color: "#fff"
   },
-  loading_view: {
-    flex: 1,
-    justifyContent: "center"
-  },
   titleView: {
     flex: 2,
     justifyContent: "center",

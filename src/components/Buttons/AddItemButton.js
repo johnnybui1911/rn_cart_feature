@@ -2,8 +2,8 @@ import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { connect } from "react-redux";
-import addItem from "../../actions/addItem";
-import styles from "./styles";
+import { addItem } from "../../actions/cartActions";
+import styles from "../styles";
 
 const AddItemButton = props => {
   const { _addItemToCart, product, _handleButtonClick } = props;

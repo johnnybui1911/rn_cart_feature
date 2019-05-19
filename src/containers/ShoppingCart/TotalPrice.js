@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
 import numeral from "numeral";
-import { connect } from "react-redux";
 import styles from "./styles";
 
 const TotalPrice = ({ cart }) => {
@@ -17,23 +16,26 @@ const TotalPrice = ({ cart }) => {
       <View
         style={{
           flex: 2,
-          alignItems: "flex-end"
+          alignItems: "flex-end",
+          justifyContent: "flex-end"
         }}
       >
         <Text>Total: </Text>
       </View>
       <View
         style={{
-          flex: 1,
-          alignItems: "center"
+          flex: 2,
+          alignItems: "center",
+          justifyContent: "flex-end"
         }}
       >
-        <Text style={styles.title}>{totalPrice}</Text>
+        <Text style={[styles.primaryText, { fontSize: 20 }]}>{totalPrice}</Text>
       </View>
       <View
         style={{
           flex: 2,
-          alignItems: "flex-end"
+          alignItems: "flex-end",
+          justifyContent: "flex-end"
         }}
       >
         <Text>Quantity: </Text>
@@ -41,17 +43,14 @@ const TotalPrice = ({ cart }) => {
       <View
         style={{
           flex: 1,
-          alignItems: "center"
+          alignItems: "center",
+          justifyContent: "flex-end"
         }}
       >
-        <Text style={styles.title}>{count}</Text>
+        <Text style={[styles.primaryText, { fontSize: 20 }]}>{count}</Text>
       </View>
     </View>
   );
 };
 
-const mapStateToProps = state => ({
-  cart: state.cart
-});
-
-export default connect(mapStateToProps)(TotalPrice);
+export default TotalPrice;

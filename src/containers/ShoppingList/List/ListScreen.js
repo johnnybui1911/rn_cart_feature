@@ -1,9 +1,9 @@
 import React from "react";
 import { SafeAreaView, FlatList } from "react-native";
-import axios from "../../library/api";
+import axios from "../../../library/api";
 import styles from "./styles";
 import ItemCard from "./ItemCard";
-import { loadingIcon } from "../../res/icons";
+import { loadingIcon } from "../../../res/icons";
 
 const initialProducts = [
   {

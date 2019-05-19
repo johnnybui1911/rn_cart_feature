@@ -3,11 +3,10 @@
 /* eslint-disable import/prefer-default-export */
 import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import numeral from "numeral";
-import images from "../../res/images";
+import images from "../../../res/images";
 import styles from "./styles";
-import axios from "../../library/api";
-import palette from "../../res/palette";
+import axios from "../../../library/api";
+import palette from "../../../res/palette";
 import PlaceholderLoading from "./PlaceholderLoading";
 
 const intitialProduct = {
@@ -26,7 +25,29 @@ const renderItem = item => {
       <View style={{ flex: 2, alignItems: "center", justifyContent: "center" }}>
         <Image source={images.fruits[imgID]} resizeMode="center" />
       </View>
-      <View style={{ flex: 3 }}>
+      <View
+        style={{
+          flex: 3
+        }}
+      >
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <Text style={styles.title}>{name}</Text>
+          <Text style={({ fontSize: 12 }, styles.description)}>
+            Apple is my favourite fruit
+          </Text>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center"
+          }}
+        >
+          <Text style={{ fontWeight: "bold", color: palette.secondaryColor }}>
+            ${price}
+          </Text>
+        </View>
+      </View>
+      {/* <View style={{ flex: 3 }}>
         <View style={{ flex: 1, justifyContent: "center" }}>
           <Text style={styles.primaryText}>{name.toUpperCase()}</Text>
         </View>
@@ -52,7 +73,7 @@ const renderItem = item => {
             <Text style={styles.secondaryText}> / kg</Text>
           </Text>
         </View>
-      </View>
+      </View> */}
     </View>
   );
 };

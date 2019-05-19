@@ -6,9 +6,11 @@ import styles from "./styles";
 import palette from "../../res/palette";
 import images from "../../res/images";
 import icons from "../../res/icons";
-import incrementItem from "../../actions/incrementItem";
-import decrementItem from "../../actions/decrementItem";
-import removeItem from "../../actions/removeItem";
+import {
+  incrementItem,
+  decrementItem,
+  removeItem
+} from "../../actions/cartActions";
 
 class ItemCard extends React.Component {
   constructor(props) {
@@ -50,13 +52,14 @@ class ItemCard extends React.Component {
     const imgID = item.id % 5;
     return (
       <View key={item.id} style={styles.item}>
-        <Image
-          source={images.fruits[imgID]}
-          style={{ height: "100%", flex: 2 }}
-        />
+        <View
+          style={{ flex: 2, alignItems: "center", justifyContent: "center" }}
+        >
+          <Image source={images.fruits[imgID]} resizeMode="center" />
+        </View>
         <View
           style={{
-            flex: 3
+            paddingHorizontal: 20
           }}
         >
           <View style={{ flex: 1, justifyContent: "center" }}>

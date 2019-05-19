@@ -4,7 +4,8 @@ import {
   REMOVE_ITEM,
   INCREMENT_ITEM,
   DECREMENT_ITEM,
-  REMOVE_ALL_ITEMS
+  REMOVE_ALL_ITEMS,
+  SET_INIT_CART
 } from "../res/actionTypes";
 
 const initialCartState = {
@@ -14,6 +15,9 @@ const initialCartState = {
 
 const cartReducer = (state = initialCartState, action) => {
   switch (action.type) {
+    case SET_INIT_CART: {
+      return action.payload;
+    }
     case ADD_ITEM: {
       /* whether product in cart or not */
       const inCartProduct = state.products.find(
@@ -26,7 +30,7 @@ const cartReducer = (state = initialCartState, action) => {
         inCartProduct.count += action.payload.count;
         products = [...state.products];
       } else {
-        /* If product does not add before */
+        /* If product added as new */
         products = [...state.products, action.payload];
       }
 
@@ -35,7 +39,6 @@ const cartReducer = (state = initialCartState, action) => {
       products.forEach(product => {
         count += product.count;
       });
-
       return { ...state, products, count };
     }
 
@@ -49,7 +52,6 @@ const cartReducer = (state = initialCartState, action) => {
       products.forEach(product => {
         count += product.count;
       });
-
       return { ...state, products, count };
     }
 
@@ -63,7 +65,6 @@ const cartReducer = (state = initialCartState, action) => {
       products.forEach(product => {
         count += product.count;
       });
-
       return { ...state, products, count };
     }
 

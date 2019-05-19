@@ -1,12 +1,10 @@
 import { StyleSheet } from "react-native";
-import palette from "../../res/palette";
+import palette from "../../../res/palette";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-end",
-    padding: 10,
-    bottom: 40,
     backgroundColor: "#fff"
   },
   loading: {
@@ -15,12 +13,13 @@ const styles = StyleSheet.create({
   },
   item: {
     height: 450,
-    margin: 5,
+    margin: 10,
     justifyContent: "center",
     alignItems: "center",
     elevation: 5,
     backgroundColor: "#fff",
-    borderRadius: 12
+    borderRadius: 12,
+    marginVertical: 40
   },
   primaryText: {
     fontSize: 40,
@@ -44,17 +43,6 @@ const styles = StyleSheet.create({
   image: {
     height: 200,
     width: 200
-  },
-  buy_now_button: {
-    backgroundColor: "transparent",
-    width: 300,
-    height: 40,
-    padding: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    bottom: -20,
-    borderRadius: 20,
-    elevation: 5
   }
 });
 

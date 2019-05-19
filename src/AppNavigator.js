@@ -1,10 +1,9 @@
 import React from "react";
 import { createStackNavigator } from "react-navigation";
-import HomeScreen from "./components/Home/HomeScreen";
-import ListScreen from "./components/List/ListScreen";
-import DetailScreen from "./components/Detail/DetailScreen";
-import CartIcon from "./containers/Header/ShoppingCartIcon/CartIcon";
-import ShoppingCartScreen from "./components/ShoppingCart/ShoppingCartScreen";
+import HomeScreen from "./containers/Home/HomeScreen";
+import CartIcon from "./components/Header/ShoppingCartIcon/CartIcon";
+import ShoppingCartScreen from "./containers/ShoppingCart/ShoppingCartScreen";
+import ListStack from "./containers/ShoppingList/ListStack";
 import palette from "./res/palette";
 
 const AppNavigator = createStackNavigator(
@@ -15,14 +14,8 @@ const AppNavigator = createStackNavigator(
         title: "HOME"
       }
     },
-    List: {
-      screen: ListScreen,
-      navigationOptions: {
-        title: "PRODUCT"
-      }
-    },
-    Detail: {
-      screen: DetailScreen,
+    ListStack: {
+      screen: ListStack,
       navigationOptions: {
         title: "PRODUCT"
       }

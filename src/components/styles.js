@@ -1,6 +1,17 @@
 import { StyleSheet } from "react-native";
+import palette from "../res/palette";
 
-const styles = StyleSheet.create({
+export default StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: palette.mainBackground,
+    justifyContent: "center"
+  },
+  loading_view: {
+    flex: 1,
+    justifyContent: "center"
+  },
   buy_now_button: {
     backgroundColor: "transparent",
     width: 300,
@@ -13,5 +24,3 @@ const styles = StyleSheet.create({
     elevation: 5
   }
 });
-
-export default styles;

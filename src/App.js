@@ -1,17 +1,21 @@
+/* eslint-disable react/prefer-stateless-function */
 import React from "react";
 import { createAppContainer } from "react-navigation";
+import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
-import store from "./store";
+import { store, persistor } from "./store";
 import AppNavigator from "./AppNavigator";
+import { DashboardStackNavigator } from "./DashboardStackNavigator";
 
-const AppContainer = createAppContainer(AppNavigator);
+const AppContainer = createAppContainer(DashboardStackNavigator);
 
-// eslint-disable-next-line react/prefer-stateless-function
 export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <AppContainer />
+        <PersistGate loading={null} persistor={persistor}>
+          <AppContainer />
+        </PersistGate>
       </Provider>
     );
   }

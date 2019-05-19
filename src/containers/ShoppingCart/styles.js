@@ -3,25 +3,38 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    justifyContent: "flex-end",
     backgroundColor: "#F8F8F8"
   },
+  card: {
+    flex: 1,
+    height: 450,
+    margin: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 5,
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    marginVertical: 40
+  },
   item: {
-    paddingLeft: 10,
-    height: 150,
-    backgroundColor: "white",
+    height: 140,
+    margin: 10,
     flexDirection: "row",
-    margin: 5
+    justifyContent: "center",
+    elevation: 3,
+    backgroundColor: "#fff",
+    borderRadius: 12
   },
   header: {
-    height: 50,
+    height: 60,
     alignItems: "center",
     justifyContent: "center"
   },
   footer: {
     flex: 1,
     flexDirection: "row",
-    margin: 20
+    paddingHorizontal: 10
   },
   button: {
     alignItems: "center",
@@ -29,14 +42,26 @@ export default StyleSheet.create({
     padding: 10
   },
   buttonLater: {
+    backgroundColor: "#FFFFFF",
+    width: 100,
+    height: 40,
+    padding: 10,
+    justifyContent: "center",
     alignItems: "center",
-    padding: 20,
-    backgroundColor: "#FFFFFF"
+    bottom: -20,
+    borderRadius: 20,
+    elevation: 30
   },
-  buttonPlace: {
+  checkout_button: {
+    backgroundColor: "transparent",
+    width: 200,
+    height: 40,
+    padding: 10,
+    justifyContent: "center",
     alignItems: "center",
-    padding: 20,
-    backgroundColor: "#3FD357"
+    bottom: -20,
+    borderRadius: 20,
+    elevation: 30
   },
   description: {
     color: "#B5B5B5"

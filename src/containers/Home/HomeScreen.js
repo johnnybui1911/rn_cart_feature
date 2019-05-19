@@ -5,8 +5,8 @@ import React from "react";
 import { SafeAreaView, View, FlatList, Text } from "react-native";
 import axios from "../../library/api";
 import styles from "./styles";
-import { loadingIcon } from "../../res/icons";
 import { Category } from "./Category";
+import LoadingScreen from "../../components/Loading/LoadingScreen";
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -55,11 +55,7 @@ export default class HomeScreen extends React.Component {
     const { isLoading } = this.state;
     return (
       <SafeAreaView style={styles.container}>
-        {isLoading ? (
-          <View style={styles.loading_view}>{loadingIcon}</View>
-        ) : (
-          this._renderListCategory()
-        )}
+        {isLoading ? <LoadingScreen /> : this._renderListCategory()}
       </SafeAreaView>
     );
   }

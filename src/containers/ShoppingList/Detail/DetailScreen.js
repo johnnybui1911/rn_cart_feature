@@ -1,13 +1,13 @@
 import React from "react";
 import { SafeAreaView, View, Text } from "react-native";
 import numeral from "numeral";
-import axios from "../../library/api";
-import { loadingIcon } from "../../res/icons";
+import axios from "../../../library/api";
 import styles from "./styles";
-import palette from "../../res/palette";
+import palette from "../../../res/palette";
 import Description from "./Description";
 import CountButton from "./CountButton";
-import AddItemButton from "../../containers/Detail/AddItemButton";
+import AddItemButton from "../../../components/Buttons/AddItemButton";
+import LoadingScreen from "../../../components/Loading/LoadingScreen";
 
 const initialProduct = {
   name: "Strawberries",
@@ -100,7 +100,7 @@ export default class DetailScreen extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         {isLoading ? (
-          <View style={styles.loading}>{loadingIcon}</View>
+          <LoadingScreen />
         ) : (
           <View style={styles.item}>
             <Description {...item} />

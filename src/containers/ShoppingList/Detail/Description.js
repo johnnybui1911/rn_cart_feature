@@ -2,7 +2,7 @@ import React from "react";
 import { View, Image, Text } from "react-native";
 import numeral from "numeral";
 import styles from "./styles";
-import images from "../../res/images";
+import images from "../../../res/images";
 
 const Description = props => {
   const { name, price, index } = props;
