@@ -23,7 +23,8 @@ export default class ListScreen extends React.Component {
       products: [],
       limit: 5,
       isRefreshing: false,
-      isLoading: true
+      isLoading: true,
+      isAllList: true
     };
   }
 
@@ -33,9 +34,11 @@ export default class ListScreen extends React.Component {
 
   _getData = () => {
     const { navigation } = this.props;
+    // default param is API_ALL_PRODUCTS with limit
+    // if list is navigated from Home, so its param is based on category
     const API_URL = navigation.getParam(
       "category_url",
-      "/shop/categories/Fruits"
+      `/shop/products/?limit=${this.state.limit}`
     );
     axios
       .get(API_URL)
@@ -43,7 +46,8 @@ export default class ListScreen extends React.Component {
         this.setState({
           products: response.data.products,
           isLoading: false,
-          isRefreshing: false
+          isRefreshing: false,
+          isAllList: API_URL.indexOf("limit") > -1
         })
       )
       .catch(error =>
@@ -55,9 +59,20 @@ export default class ListScreen extends React.Component {
   };
 
   _handleLoadMore = () => {
-    this.setState(prevState => ({
-      limit: prevState.limit + 1
-    }));
+    const { isAllList } = this.state;
+    if (isAllList) {
+      // if it is all list, everytime limit increased by 5, fetch data again with updated limit
+      this.setState(
+        prevState => ({
+          limit: prevState.limit + 5
+        }),
+        this._getData()
+      );
+    } else {
+      this.setState(prevState => ({
+        limit: prevState.limit + 5
+      }));
+    }
   };
 
   /* Pull to refresh, su dung ca isLoading de the hien ro rang hon */

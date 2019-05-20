@@ -7,7 +7,7 @@ import palette from "../../res/palette";
 
 const ListStack = createStackNavigator(
   {
-    List: {
+    AllList: {
       screen: ListScreen
     },
     Detail: {
@@ -15,19 +15,16 @@ const ListStack = createStackNavigator(
     }
   },
   {
-    headerMode: "none"
+    defaultNavigationOptions: ({ navigation }) => ({
+      title: "LIST",
+      headerRight: <CartIcon onpress={() => navigation.navigate("Cart")} />,
+      headerStyle: {
+        backgroundColor: palette.primaryColor
+      },
+      headerTintColor: "#fff"
+    }),
+    headerLayoutPreset: "center"
   }
-  // {
-  //   defaultNavigationOptions: ({ navigation }) => ({
-  //     title: "LIST",
-  //     headerRight: <CartIcon onpress={() => navigation.navigate("Cart")} />,
-  //     headerStyle: {
-  //       backgroundColor: palette.primaryColor
-  //     },
-  //     headerTintColor: "#fff"
-  //   }),
-  //   headerLayoutPreset: "center"
-  // }
 );
 
 export default ListStack;

@@ -9,7 +9,7 @@ const PlaceOrder = ({ handlePlaceOrder, navigation }) => {
       <View style={{ flex: 1, alignItems: "flex-end" }}>
         <TouchableOpacity
           style={styles.buttonLater}
-          onPress={() => navigation.navigate("List")}
+          onPress={() => navigation.navigate("AllList")}
         >
           <Text style={{ color: "black", fontWeight: "bold" }}>LATER</Text>
         </TouchableOpacity>

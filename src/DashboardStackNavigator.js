@@ -9,14 +9,19 @@ import ListStack from "./containers/ShoppingList/ListStack";
 import palette from "./res/palette";
 import ShoppingCartScreen from "./containers/ShoppingCart/ShoppingCartScreen";
 import CartIcon from "./components/Header/ShoppingCartIcon/CartIcon";
+import ListScreen from "./containers/ShoppingList/List/ListScreen";
+import DetailScreen from "./containers/ShoppingList/Detail/DetailScreen";
 
 const HomeStack = createStackNavigator(
   {
     Home: {
       screen: HomeScreen
     },
-    ListStack: {
-      screen: ListStack
+    List: {
+      screen: ListScreen
+    },
+    Detail: {
+      screen: DetailScreen
     }
   },
   {
@@ -60,16 +65,16 @@ export const DashboardTabNavigator = createBottomTabNavigator(
           <Icon name="home" size={30} color={tintColor} />
         )
       })
+    },
+    ListStack: {
+      screen: ListStack,
+      navigationOptions: () => ({
+        tabBarLabel: "List",
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="list" size={25} color={tintColor} />
+        )
+      })
     }
-    // List: {
-    //   screen: ListStack,
-    //   navigationOptions: () => ({
-    //     tabBarLabel: "List",
-    //     tabBarIcon: ({ tintColor }) => (
-    //       <Icon name="list" size={25} color={tintColor} />
-    //     )
-    //   })
-    // }
   },
   {
     initialRouteName: "Home",

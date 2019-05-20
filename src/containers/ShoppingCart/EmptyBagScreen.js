@@ -26,7 +26,7 @@ const EmptyBagScreen = ({ navigation }) => (
     >
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("List");
+          navigation.navigate("AllList");
         }}
       >
         <Text style={{ color: "white", fontWeight: "bold" }}>
