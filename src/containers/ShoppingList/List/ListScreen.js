@@ -75,9 +75,13 @@ export default class ListScreen extends React.Component {
     }
   };
 
-  /* Pull to refresh, su dung ca isLoading de the hien ro rang hon */
+  /* Pull to refresh, su dung setTimeout chi de show animation placeholder */
   _onRefresh = () => {
-    this.setState({ isRefreshing: true, limit: 5 }, this._getData());
+    this.setState({ isRefreshing: true, limit: 5 }, () =>
+      setTimeout(() => {
+        this.setState({ isRefreshing: false });
+      }, 1000)
+    );
   };
 
   _renderListProduct = () => {

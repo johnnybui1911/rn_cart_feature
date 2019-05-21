@@ -31,24 +31,10 @@ export default class DetailScreen extends React.Component {
   };
 
   _getData = () => {
-    /* get product_url from ItemCard in ListScreen in order to retrieve data from API product */
-    const API_URL = this.props.navigation.getParam(
-      "product_url",
-      INITIAL_API_URL
-    );
-    const id = this.props.navigation.getParam("id", 0);
-    axios
-      .get(API_URL)
-      .then(response => {
-        const product = response.data;
-        this.setState({
-          product: { id, ...product, count: 0 },
-          isLoading: false
-        });
-      })
-      .catch(error => {
-        this.setState({ isLoading: true });
-      });
+    /* get product data as param navigated from List Screen */
+    const { navigation } = this.props;
+    const product = navigation.getParam("product", initialProduct);
+    this.setState({ product, isLoading: false });
   };
 
   _handlePlus = () => {

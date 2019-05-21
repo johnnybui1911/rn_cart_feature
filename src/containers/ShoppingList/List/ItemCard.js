@@ -71,7 +71,7 @@ export default class ItemCard extends React.Component {
       .get(product_url)
       .then(response => {
         const id = product_url.substring(product_url.lastIndexOf("/") + 1);
-        const product = { id, ...response.data };
+        const product = { id, ...response.data, count: 0 };
         this.setState({ product, isLoading: false });
       })
       .catch(error => {
@@ -87,7 +87,7 @@ export default class ItemCard extends React.Component {
 
     return (
       <View>
-        {isRefreshing ? (
+        {isLoading || isRefreshing ? (
           <View
             style={{
               height: 140,
@@ -107,6 +107,7 @@ export default class ItemCard extends React.Component {
             onPress={() => {
               this.props.navigation.navigate("Detail", {
                 product_url,
+                product,
                 id: product.id
               });
             }}
