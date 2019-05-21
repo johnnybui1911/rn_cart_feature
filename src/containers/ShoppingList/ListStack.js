@@ -3,7 +3,7 @@ import { createStackNavigator } from "react-navigation";
 import ListScreen from "../ShoppingList/List/ListScreen";
 import DetailScreen from "../ShoppingList/Detail/DetailScreen";
 import CartIcon from "../../components/Header/ShoppingCartIcon/CartIcon";
-import palette from "../../res/palette";
+import palette from "../../assets/palette";
 
 const ListStack = createStackNavigator(
   {

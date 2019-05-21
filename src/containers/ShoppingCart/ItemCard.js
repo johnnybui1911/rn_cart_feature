@@ -3,13 +3,13 @@ import React from "react";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import styles from "./styles";
-import palette from "../../res/palette";
-import images from "../../res/images";
-import icons from "../../res/icons";
+import palette from "../../assets/palette";
+import images from "../../assets/images";
+import icons from "../../assets/icons";
 import {
-  incrementItem,
-  decrementItem,
-  removeItem
+  incrementProduct,
+  decrementProduct,
+  removeProduct
 } from "../../actions/cartActions";
 
 class ItemCard extends React.Component {
@@ -43,7 +43,7 @@ class ItemCard extends React.Component {
         this.props._handleDecrement(id)
       );
     } else {
-      this.props._handleRemoveItem(id);
+      this.props._handleRemoveProduct(id);
     }
   };
 
@@ -109,13 +109,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   _handleIncrement: id => {
-    dispatch(incrementItem(id));
+    dispatch(incrementProduct(id));
   },
   _handleDecrement: id => {
-    dispatch(decrementItem(id));
+    dispatch(decrementProduct(id));
   },
-  _handleRemoveItem: id => {
-    dispatch(removeItem(id));
+  _handleRemoveProduct: id => {
+    dispatch(removeProduct(id));
   }
 });
 

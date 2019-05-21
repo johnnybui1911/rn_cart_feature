@@ -4,7 +4,7 @@ import HomeScreen from "./containers/Home/HomeScreen";
 import CartIcon from "./components/Header/ShoppingCartIcon/CartIcon";
 import ShoppingCartScreen from "./containers/ShoppingCart/ShoppingCartScreen";
 import ListStack from "./containers/ShoppingList/ListStack";
-import palette from "./res/palette";
+import palette from "./assets/palette";
 
 const AppNavigator = createStackNavigator(
   {

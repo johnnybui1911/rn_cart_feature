@@ -3,10 +3,10 @@ import { SafeAreaView, View, Text } from "react-native";
 import numeral from "numeral";
 import axios from "../../../library/api";
 import styles from "./styles";
-import palette from "../../../res/palette";
+import palette from "../../../assets/palette";
 import Description from "./Description";
 import CountButton from "./CountButton";
-import AddItemButton from "../../../components/Buttons/AddItemButton";
+import AddProductButton from "../../../components/Buttons/AddProductButton";
 import LoadingScreen from "../../../components/Loading/LoadingScreen";
 
 const initialProduct = {
@@ -36,10 +36,10 @@ export default class DetailScreen extends React.Component {
       "product_url",
       INITIAL_API_URL
     );
+    const id = this.props.navigation.getParam("id", 0);
     axios
       .get(API_URL)
       .then(response => {
-        const id = API_URL.toString().substring(API_URL.lastIndexOf("/") + 1);
         const product = response.data;
         this.setState({
           product: { id, ...product, count: 0 },
@@ -95,22 +95,20 @@ export default class DetailScreen extends React.Component {
 
   render() {
     const { product, isLoading } = this.state;
-    const index = this.props.navigation.getParam("index", 1);
-    const item = { ...product, index };
     return (
       <SafeAreaView style={styles.container}>
         {isLoading ? (
           <LoadingScreen />
         ) : (
           <View style={styles.item}>
-            <Description {...item} />
+            <Description {...product} />
             <CountButton
-              count={item.count}
+              count={product.count}
               _handlePlus={this._handlePlus}
               _handleSubtract={this._handleSubtract}
             />
             {this._renderTotalPrice()}
-            <AddItemButton
+            <AddProductButton
               product={product}
               _handleButtonClick={this._handleMainButtonClick}
             />

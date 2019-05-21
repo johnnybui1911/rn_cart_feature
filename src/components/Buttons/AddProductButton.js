@@ -2,11 +2,11 @@ import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { connect } from "react-redux";
-import { addItem } from "../../actions/cartActions";
+import { addProduct } from "../../actions/cartActions";
 import styles from "../styles";
 
-const AddItemButton = props => {
-  const { _addItemToCart, product, _handleButtonClick } = props;
+const AddProductButton = props => {
+  const { _addProductToCart, product, _handleButtonClick } = props;
   return (
     <LinearGradient
       start={{ x: 0, y: 0 }}
@@ -17,7 +17,7 @@ const AddItemButton = props => {
       <TouchableOpacity
         onPress={() => {
           _handleButtonClick();
-          _addItemToCart(product);
+          _addProductToCart(product);
         }}
       >
         <Text style={{ color: "white", fontWeight: "bold" }}>ADD TO CART</Text>
@@ -27,9 +27,9 @@ const AddItemButton = props => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  _addItemToCart: product => {
+  _addProductToCart: product => {
     if (product.count !== 0) {
-      dispatch(addItem(product));
+      dispatch(addProduct(product));
     }
   }
 });
@@ -37,4 +37,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(AddItemButton);
+)(AddProductButton);

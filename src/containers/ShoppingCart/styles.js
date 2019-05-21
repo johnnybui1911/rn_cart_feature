@@ -48,7 +48,7 @@ export default StyleSheet.create({
     padding: 10,
     justifyContent: "center",
     alignItems: "center",
-    bottom: -20,
+    bottom: -13,
     borderRadius: 20,
     elevation: 30
   },
@@ -59,7 +59,7 @@ export default StyleSheet.create({
     padding: 10,
     justifyContent: "center",
     alignItems: "center",
-    bottom: -20,
+    bottom: -13,
     borderRadius: 20,
     elevation: 30
   },

@@ -3,11 +3,11 @@ import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import AsyncStorage from "@react-native-community/async-storage";
 import rootReducer from "../reducers";
-// import { getAsyncCart } from "../actions/cartActions";
 
 const persistConfig = {
   key: "root",
-  storage: AsyncStorage
+  storage: AsyncStorage,
+  blacklist: ["categoriesState", "productsState"]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

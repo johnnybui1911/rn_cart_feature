@@ -6,7 +6,7 @@ import TotalPrice from "./TotalPrice";
 import TotalItem from "./TotalItem";
 import FlatListItem from "./FlatListItem";
 import PlaceOrder from "./PlaceOrder";
-import { removeItems } from "../../actions/cartActions";
+import { removeProducts } from "../../actions/cartActions";
 import styles from "./styles";
 import EmptyBagScreen from "./EmptyBagScreen";
 
@@ -36,7 +36,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handlePlaceOrder() {
-    dispatch(removeItems());
+    dispatch(removeProducts());
   }
 });
 

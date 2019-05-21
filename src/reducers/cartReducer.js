@@ -1,13 +1,14 @@
 /* eslint-disable function-paren-newline */
 import {
-  ADD_ITEM,
-  REMOVE_ITEM,
-  INCREMENT_ITEM,
-  DECREMENT_ITEM,
-  REMOVE_ALL_ITEMS,
+  ADD_PRODUCT,
+  REMOVE_PRODUCT,
+  INCREMENT_PRODUCT,
+  DECREMENT_PRODUCT,
+  REMOVE_ALL_PRODUCTS,
   SET_INIT_CART
-} from "../res/actionTypes";
+} from "../assets/actionTypes";
 
+/* Define cart initial State: no products in cart  */
 const initialCartState = {
   products: [],
   count: 0
@@ -18,7 +19,7 @@ const cartReducer = (state = initialCartState, action) => {
     case SET_INIT_CART: {
       return action.payload;
     }
-    case ADD_ITEM: {
+    case ADD_PRODUCT: {
       /* whether product in cart or not */
       const inCartProduct = state.products.find(
         product => product.id === action.payload.id
@@ -42,7 +43,7 @@ const cartReducer = (state = initialCartState, action) => {
       return { ...state, products, count };
     }
 
-    case INCREMENT_ITEM: {
+    case INCREMENT_PRODUCT: {
       const { products } = state;
       const editProduct = products.find(product => product.id === action.id);
       editProduct.count += 1;
@@ -55,7 +56,7 @@ const cartReducer = (state = initialCartState, action) => {
       return { ...state, products, count };
     }
 
-    case DECREMENT_ITEM: {
+    case DECREMENT_PRODUCT: {
       const { products } = state;
       const editProduct = products.find(product => product.id === action.id);
       editProduct.count -= 1;
@@ -68,7 +69,7 @@ const cartReducer = (state = initialCartState, action) => {
       return { ...state, products, count };
     }
 
-    case REMOVE_ITEM: {
+    case REMOVE_PRODUCT: {
       const products = state.products.filter(
         product => product.id !== action.id
       );
@@ -80,7 +81,7 @@ const cartReducer = (state = initialCartState, action) => {
       return { ...state, products, count };
     }
 
-    case REMOVE_ALL_ITEMS: {
+    case REMOVE_ALL_PRODUCTS: {
       return { ...state, products: [], count: 0 };
     }
     default:

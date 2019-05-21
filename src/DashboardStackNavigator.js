@@ -6,7 +6,8 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 import HomeScreen from "./containers/Home/HomeScreen";
 import ListStack from "./containers/ShoppingList/ListStack";
-import palette from "./res/palette";
+import palette from "./assets/palette";
+
 import ShoppingCartScreen from "./containers/ShoppingCart/ShoppingCartScreen";
 import CartIcon from "./components/Header/ShoppingCartIcon/CartIcon";
 import ListScreen from "./containers/ShoppingList/List/ListScreen";
@@ -18,10 +19,16 @@ const HomeStack = createStackNavigator(
       screen: HomeScreen
     },
     List: {
-      screen: ListScreen
+      screen: ListScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: navigation.getParam("category_name", "")
+      })
     },
     Detail: {
-      screen: DetailScreen
+      screen: DetailScreen,
+      navigationOptions: () => ({
+        title: "DETAIL"
+      })
     }
   },
   {

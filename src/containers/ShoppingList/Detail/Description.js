@@ -2,11 +2,10 @@ import React from "react";
 import { View, Image, Text } from "react-native";
 import numeral from "numeral";
 import styles from "./styles";
-import images from "../../../res/images";
+import images from "../../../assets/images";
 
 const Description = props => {
-  const { name, price, index } = props;
-  const imgID = index % 5;
+  const { name, price, id } = props;
   return (
     <View
       style={{
@@ -15,7 +14,7 @@ const Description = props => {
         top: -120
       }}
     >
-      <Image style={styles.image} source={images.fruits[imgID]} />
+      <Image style={styles.image} source={images.fruits[id % 5]} />
       <View
         style={{
           flex: 2,

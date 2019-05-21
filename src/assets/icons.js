@@ -2,7 +2,7 @@
 import React from "react";
 import { ActivityIndicator } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import palette from "../res/palette";
+import palette from "../assets/palette";
 
 export default {
   searchIcon: (

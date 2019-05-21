@@ -1,41 +1,22 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/no-array-index-key */
 import React from "react";
-import { SafeAreaView, View, FlatList, Text } from "react-native";
-import axios from "../../library/api";
+import { SafeAreaView, FlatList } from "react-native";
+import { connect } from "react-redux";
 import styles from "./styles";
 import { Category } from "./Category";
 import LoadingScreen from "../../components/Loading/LoadingScreen";
+import { getCategories } from "../../actions/categoriesAction";
 
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      categories: [],
-      isLoading: true
-    };
   }
 
   componentDidMount = () => {
-    this._getData();
-  };
-
-  _getData = () => {
-    const API_URL = "/shop/categories/";
-    axios
-      .get(API_URL)
-      .then(response => {
-        this.setState({
-          categories: response.data.categories.filter(item => item.name),
-          isLoading: false
-        });
-      })
-      .catch(() => this.setState({ isLoading: true }));
+    this.props.getCategories();
   };
 
   _renderListCategory = () => {
-    const { categories } = this.state;
+    const { categories } = this.props.categoriesState;
     return (
       <FlatList
         data={categories}
@@ -52,7 +33,7 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
-    const { isLoading } = this.state;
+    const { isLoading } = this.props.categoriesState;
     return (
       <SafeAreaView style={styles.container}>
         {isLoading ? <LoadingScreen /> : this._renderListCategory()}
@@ -60,3 +41,16 @@ export default class HomeScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  categoriesState: state.categoriesState
+});
+
+const mapDispatchToProps = {
+  getCategories
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomeScreen);

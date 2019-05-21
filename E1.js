@@ -9,7 +9,7 @@ import {
   StyleSheet,
   TouchableOpacity
 } from "react-native";
-import palette from "./src/res/palette";
+import palette from "./src/assets/palette";
 
 const styles = StyleSheet.create({
   container: {

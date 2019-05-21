@@ -11,7 +11,9 @@ const PlaceOrder = ({ handlePlaceOrder, navigation }) => {
           style={styles.buttonLater}
           onPress={() => navigation.navigate("AllList")}
         >
-          <Text style={{ color: "black", fontWeight: "bold" }}>LATER</Text>
+          <View style={{ alignItems: "center", flex: 1 }}>
+            <Text style={{ color: "black", fontWeight: "bold" }}>LATER</Text>
+          </View>
         </TouchableOpacity>
       </View>
       <View style={{ flex: 2, alignItems: "center" }}>

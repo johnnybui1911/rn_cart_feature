@@ -3,10 +3,10 @@
 /* eslint-disable import/prefer-default-export */
 import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import images from "../../../res/images";
+import images from "../../../assets/images";
 import styles from "./styles";
 import axios from "../../../library/api";
-import palette from "../../../res/palette";
+import palette from "../../../assets/palette";
 import PlaceholderLoading from "./PlaceholderLoading";
 
 const intitialProduct = {
@@ -17,13 +17,14 @@ const intitialProduct = {
   vendor_url: "/shop/vendors/32"
 };
 
+const PHOTO_URL = "https://api.predic8.de/shop/products/92/photo";
+
 const renderItem = item => {
-  const { name, price, index } = item;
-  const imgID = index % 5;
+  const { name, price, id } = item;
   return (
     <View style={styles.item}>
       <View style={{ flex: 2, alignItems: "center", justifyContent: "center" }}>
-        <Image source={images.fruits[imgID]} resizeMode="center" />
+        <Image source={images.fruits[id % 5]} resizeMode="center" />
       </View>
       <View
         style={{
@@ -47,33 +48,6 @@ const renderItem = item => {
           </Text>
         </View>
       </View>
-      {/* <View style={{ flex: 3 }}>
-        <View style={{ flex: 1, justifyContent: "center" }}>
-          <Text style={styles.primaryText}>{name.toUpperCase()}</Text>
-        </View>
-        <View style={{ flex: 1, justifyContent: "center" }}>
-          <Text style={styles.secondaryText}>
-            Apple is the best thing ever in my whole life
-          </Text>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center"
-          }}
-        >
-          <Text
-            style={{
-              fontWeight: "bold",
-              color: palette.secondaryColor,
-              fontSize: 20
-            }}
-          >
-            {numeral(price).format("$0.0")}
-            <Text style={styles.secondaryText}> / kg</Text>
-          </Text>
-        </View>
-      </View> */}
     </View>
   );
 };
@@ -96,7 +70,8 @@ export default class ItemCard extends React.Component {
     axios
       .get(product_url)
       .then(response => {
-        const product = response.data;
+        const id = product_url.substring(product_url.lastIndexOf("/") + 1);
+        const product = { id, ...response.data };
         this.setState({ product, isLoading: false });
       })
       .catch(error => {
@@ -106,13 +81,13 @@ export default class ItemCard extends React.Component {
 
   render() {
     /* props isRefreshing from ListScreen - FlatList each time being refresh */
-    const { item, index, isRefreshing } = this.props;
+    const { item, isRefreshing } = this.props;
     const { product, isLoading } = this.state;
     const { product_url } = item;
 
     return (
       <View>
-        {isLoading || isRefreshing ? (
+        {isRefreshing ? (
           <View
             style={{
               height: 140,
@@ -130,10 +105,13 @@ export default class ItemCard extends React.Component {
         ) : (
           <TouchableOpacity
             onPress={() => {
-              this.props.navigation.navigate("Detail", { product_url, index });
+              this.props.navigation.navigate("Detail", {
+                product_url,
+                id: product.id
+              });
             }}
           >
-            {renderItem({ ...product, index })}
+            {renderItem(product)}
           </TouchableOpacity>
         )}
       </View>

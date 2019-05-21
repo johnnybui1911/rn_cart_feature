@@ -1,12 +1,10 @@
-import AsyncStorage from "@react-native-community/async-storage";
 import {
-  ADD_ITEM,
-  DECREMENT_ITEM,
-  INCREMENT_ITEM,
-  REMOVE_ITEM,
-  REMOVE_ALL_ITEMS,
-  SET_INIT_CART
-} from "../res/actionTypes";
+  ADD_PRODUCT,
+  DECREMENT_PRODUCT,
+  INCREMENT_PRODUCT,
+  REMOVE_PRODUCT,
+  REMOVE_ALL_PRODUCTS
+} from "../assets/actionTypes";
 
 // export const setInitCart = data => {
 //   return {
@@ -15,24 +13,24 @@ import {
 //   };
 // };
 
-export const addItem = product => {
-  return { type: ADD_ITEM, payload: product };
+export const addProduct = product => {
+  return { type: ADD_PRODUCT, payload: product };
 };
 
-export const decrementItem = id => {
-  return { type: DECREMENT_ITEM, id };
+export const decrementProduct = id => {
+  return { type: DECREMENT_PRODUCT, id };
 };
 
-export const incrementItem = id => {
-  return { type: INCREMENT_ITEM, id };
+export const incrementProduct = id => {
+  return { type: INCREMENT_PRODUCT, id };
 };
 
-export const removeItem = id => {
-  return { type: REMOVE_ITEM, id };
+export const removeProduct = id => {
+  return { type: REMOVE_PRODUCT, id };
 };
 
-export const removeItems = () => {
-  return { type: REMOVE_ALL_ITEMS };
+export const removeProducts = () => {
+  return { type: REMOVE_ALL_PRODUCTS };
 };
 
 /* Use normal Async Storage */

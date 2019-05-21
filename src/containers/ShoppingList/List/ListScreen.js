@@ -3,7 +3,7 @@ import { SafeAreaView, FlatList } from "react-native";
 import axios from "../../../library/api";
 import styles from "./styles";
 import ItemCard from "./ItemCard";
-import { loadingIcon } from "../../../res/icons";
+import { loadingIcon } from "../../../assets/icons";
 
 const initialProducts = [
   {
@@ -36,18 +36,18 @@ export default class ListScreen extends React.Component {
     const { navigation } = this.props;
     // default param is API_ALL_PRODUCTS with limit
     // if list is navigated from Home, so its param is based on category
-    const API_URL = navigation.getParam(
+    const PRODUCTS_URL = navigation.getParam(
       "category_url",
       `/shop/products/?limit=${this.state.limit}`
     );
     axios
-      .get(API_URL)
+      .get(PRODUCTS_URL)
       .then(response =>
         this.setState({
           products: response.data.products,
           isLoading: false,
           isRefreshing: false,
-          isAllList: API_URL.indexOf("limit") > -1
+          isAllList: PRODUCTS_URL.indexOf("limit") > -1
         })
       )
       .catch(error =>
@@ -88,7 +88,7 @@ export default class ListScreen extends React.Component {
         keyExtractor={(item, index) => index.toString()}
         renderItem={this._renderItem}
         onEndReached={this._handleLoadMore}
-        onEndReachedThreshold={5}
+        onEndReachedThreshold={1}
         onRefresh={() => this._onRefresh()}
         refreshing={isRefreshing}
       />

@@ -1,6 +1,6 @@
 import React from "react";
 import { SafeAreaView, View } from "react-native";
-import { loadingIcon } from "../../res/icons";
+import { loadingIcon } from "../../assets/icons";
 import styles from "../styles";
 
 const LoadingScreen = () => (
